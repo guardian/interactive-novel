@@ -13,9 +13,14 @@
     margin: 0 !important;
   }
 
+  .interactive-block {
+    width:100%;
+  }
+
   .interactive-copy {
       color: #333;
-      width:620px;
+      max-width:620px;
+      width:100%;
 
       @include mq(wide) {
         padding-left:15rem;
@@ -54,7 +59,9 @@
       text-shadow:2px 1px rgba(0, 0, 0, 0.3);
       margin-left:1.25rem;
       padding-top:50px;
-      width:500px;
+      max-width:500px;
+      width:85%;
+      margin-right:1.25rem;
     }
 
     .interactive-bg-block {
@@ -62,19 +69,66 @@
       margin-bottom:30px;
       position: relative;
       background-size: cover;
-      min-height: 600px;
+      // background-attachment: fixed;
+      min-height: 800px;
       height:100%;
 
-      @include mq($until: tablet) {
+      @include mq($until: wide) {
+        background-position:left;
+      }
+
+      @include mq(desktop) {
+          min-height:600px;
+      }
+
+      @include mq(wideDesktop) {
+          min-height:700px;
+      }
+
+      @include mq($until: desktop) {
           min-height:400px;
+      }
+
+      @include mq($from:mobile, $until:mobileLandscape) {
+          background-position:center;
       }
     }
 
-    .challenge-title {
-      @include fs-textSans(3);
+    .challenge-title, .scenario-title {
+      @include fs-data(4);
       font-weight:900;
-      color: #dc2a7d;
       padding-right:10px;
-      font-size:17px;
+      font-size:18px;
       line-height:24px;
+    }
+
+    .challenge-title {
+      color: #dc2a7d;
+    }
+
+    .scenario-title {
+      color: #27a9e1;
+    }
+
+    .label-graphic {
+      @include fs-data(2);
+      font-weight:400;
+      font-size:14px;
+      color:#cccccc;
+    }
+
+
+
+    .first-block::first-letter {
+      font-size:100px;
+      line-height:90px;
+      margin-right:20px;
+      color:#333;
+      float:left;
+
+      @include mq($until: tablet) {
+      font-size:60px;
+      line-height:60px;
+      margin-right:15px;
+      }
     }

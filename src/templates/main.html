@@ -1,5 +1,15 @@
 <div class="interactive-main">
 	{{#blocks}}
+	{{#firstBlock}}
+	<div class="interactive-block">
+		<p class="interactive-copy first-block">{{{copy}}}</p>
+	</div>
+	{{/firstBlock}}
+	{{#graphic}}
+	<div class="interactive-block">
+		<p class="label-graphic">{{{label}}}</p>
+	</div>
+	{{/graphic}}
 	{{#imageBackground}}
 	<div class="interactive-block">
 		<div class="interactive-bg-block" style="background-image: url('<%= path %>/{{url}}');">

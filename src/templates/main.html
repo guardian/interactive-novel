@@ -1,0 +1,23 @@
+<div class="interactive-main">
+	{{#blocks}}
+	{{#imageBackground}}
+	<div class="interactive-block">
+		<div class="interactive-bg-block" style="background-image: url('<%= path %>/{{url}}');">
+			<p class="interactive-copy interactive-lead on-img"><b>{{{copy}}}</b></p>
+		</div>
+	</div>
+	{{/imageBackground}}
+	{{#leadin}}
+		<div class="interactive-block">
+			<p class="interactive-copy interactive-lead"><b>{{{copy}}}</b></p>
+		</div>
+	{{/leadin}}
+	 {{#copyBlock}}
+		<div class="interactive-block">
+			{{#copy}}
+        <p class="interactive-copy">{{{.}}}</p>
+			{{/copy}}
+		</div>
+		{{/copyBlock}}
+	{{/blocks}}
+</div>

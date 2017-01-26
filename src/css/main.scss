@@ -1,0 +1,80 @@
+@import "mq";
+@import "fonts";
+
+// Uncomment for embeds
+//@import "embed";
+
+// Uncomment for full screen (including immersive article main media)
+//@import "fullscreen";
+
+
+.element-atom,
+.interactive-atom {
+    margin: 0 !important;
+  }
+
+  .interactive-copy {
+      color: #333;
+      width:620px;
+
+      @include mq(wide) {
+        padding-left:15rem;
+      }
+
+      @include mq ($from:wideDesktop, $until: wide) {
+        padding-left:10rem;
+      }
+
+      @include mq(desktop) {
+        margin-left:0;
+      }
+
+      @include mq($until: tablet) {
+          margin-left:0;
+      }
+      margin-top: 0;
+      position: relative;
+      z-index: 3;
+
+      @include mq($until: tablet) {
+          padding-left: 10px;
+          padding-right: 10px;
+      }
+    }
+
+    .interactive-lead {
+      @include fs-header(4);
+      font-size: 24px;
+      line-height: 28px;
+      margin: 25px 0;
+    }
+
+    .on-img {
+      color:white;
+      text-shadow:2px 1px rgba(0, 0, 0, 0.3);
+      margin-left:1.25rem;
+      padding-top:50px;
+      width:500px;
+    }
+
+    .interactive-bg-block {
+      margin:0 -1.25rem;
+      margin-bottom:30px;
+      position: relative;
+      background-size: cover;
+      min-height: 600px;
+      height:100%;
+
+      @include mq($until: tablet) {
+          min-height:400px;
+      }
+    }
+
+    .challenge-title {
+      @include fs-textSans(3);
+      font-weight:900;
+      color: #dc2a7d;
+      padding-right:10px;
+      font-size:17px;
+      line-height:24px;
+    }

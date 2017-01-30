@@ -11,41 +11,41 @@
 .element-atom,
 .interactive-atom {
     margin: 0 !important;
-  }
+}
 
-  .interactive-block {
+.interactive-block {
     width:100%;
-  }
+}
 
-  .interactive-copy {
-      color: #333;
-      max-width:620px;
-      width:100%;
+.interactive-copy {
+    color: #333;
+    max-width:620px;
+    width:100%;
 
-      @include mq(wide) {
-        padding-left:15rem;
-      }
-
-      @include mq ($from:wideDesktop, $until: wide) {
-        padding-left:10rem;
-      }
-
-      @include mq(desktop) {
-        margin-left:0;
-      }
-
-      @include mq($until: tablet) {
-          margin-left:0;
-      }
-      margin-top: 0;
-      position: relative;
-      z-index: 3;
-
-      @include mq($until: tablet) {
-          padding-left: 10px;
-          padding-right: 10px;
-      }
+    @include mq(wide) {
+    padding-left:15rem;
     }
+
+    @include mq ($from:wideDesktop, $until: wide) {
+    padding-left:10rem;
+    }
+
+    @include mq(desktop) {
+    margin-left:0;
+    }
+
+    @include mq($until: tablet) {
+      margin-left:0;
+    }
+    margin-top: 0;
+    position: relative;
+    z-index: 3;
+
+    @include mq($until: tablet) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+}
 
     .interactive-lead {
       @include fs-header(4);
@@ -139,4 +139,25 @@
       // display:block;
       // // float:left;
       // // position:relative;
+    }
+
+    .interactive-highlight-container{
+        min-height:40px;
+
+        .interactive-highlight-viz{
+            max-width:620px;
+            background:pink;
+            min-height:300px;
+            margin: 0 auto;
+        }
+
+        p{
+            padding:0;
+            margin:0;
+            height:80px;
+            background:#333;
+            margin:20px auto 20px;
+            max-width:620px;
+            color:#fff;
+        }
     }

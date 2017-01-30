@@ -6,10 +6,20 @@
 	</div>
 	{{/firstBlock}}
 	{{#graphic}}
-	<div class="interactive-block">
-		<p class="label-graphic">{{{label}}}</p>
-		<figure class="interactive element--immersive element-interactive" data-interactive="{{{embed-url}}}" data-canonical-url="{{{embed-url}}}"></figure>
-	</div>
+		{{^highlight}}
+		<div class="interactive-block">
+			<p class="label-graphic">{{{label}}}</p>
+			<figure class="interactive element--immersive element-interactive" data-interactive="{{{embed-url}}}" data-canonical-url="{{{embed-url}}}"></figure>
+		</div>
+		{{/highlight}}
+		{{#highlight}}
+		<div class="interactive-block">
+			<div class="interactive-highlight-container interactive-copy" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
+				<div class="interactive-highlight-viz"></div>
+				<p class="interactive-highlight-label"></p>
+			</div>
+		</div>
+		{{/highlight}}
 	{{/graphic}}
 	{{#imageBackground}}
 	<div class="interactive-block">

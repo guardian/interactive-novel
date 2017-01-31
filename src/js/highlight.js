@@ -25,7 +25,8 @@ export default function(el){
     setInterval(function(){
         var elOffset = el.getBoundingClientRect().top;
         var elHeight = el.getBoundingClientRect().height;
-        if(elOffset <= -elHeight || elOffset > windowHeight){return;}
+        console.log(document.hidden)
+        if(elOffset <= -elHeight || elOffset > windowHeight || document.hidden){return;}
 
 
         var isLast = count === quotes.length - 1;

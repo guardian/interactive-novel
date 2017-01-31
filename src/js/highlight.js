@@ -9,15 +9,22 @@ import data from '../assets/data.json'
 export default function(el){
     el.querySelector('.interactive-highlight-viz').innerHTML = vizHtml
 
-    var count = 0;
-    var quotes = el.getAttribute('data-dates').split(', ').filter(function(e){return e});
     var looped = false;
+    var oldQuote = "";
+    var count = 0;
+    var quotes = [].map.call(el.querySelectorAll('.interactive-highlight-quote'),function(quote){
+        return {
+            "quote":quote,
+            "date":quote.getAttribute('data-date')
+        }
+    })
 
     setInterval(function(){
-        var date = quotes[count];
+        var date = quotes[count].date;
+        var newQuote = quotes[count].quote;
         var isLast = count === quotes.length - 1;
 
-        animateVisualisation(el,date,count === 0 && looped);
+        animateVisualisation(el,date,newQuote,oldQuote,count === 0 && looped);
 
         if(isLast){
             count = 0;
@@ -25,21 +32,25 @@ export default function(el){
         }else{
             count++;
         }
+        oldQuote = newQuote;
     },4000)
 }
+
+
 
 // Viz variables
 var vizPoints = [];
 var vizMargin = 0;
+var vizMarginTop = 10;
 var vizWidth = document.querySelector('.interactive-highlight-viz').offsetWidth - vizMargin*2;
-var vizHeight = vizWidth/2;
+var vizHeight = vizWidth/4;
 
 var maxPages = 44030;
 var maxOffset = max(data,function(d){
     return Number(d.day_gap)
 });
 
-var offsetScale = scaleLinear().domain([0,maxOffset]).range([0,vizHeight/2]);
+var offsetScale = scaleLinear().domain([0,maxOffset]).range([vizMarginTop,vizHeight-vizMarginTop]);
 var wordScale = scaleLinear().domain([0,maxPages]).range([0,vizWidth]);
 
 var lineFn = line()
@@ -48,7 +59,7 @@ var lineFn = line()
         }else{return 0}
     })
     .y(function(d,i){
-        return (vizHeight/2) + offsetScale(d.day_gap ? d.day_gap : 0)
+        return offsetScale(d.day_gap ? d.day_gap : 0)
     })
 
 
@@ -86,37 +97,59 @@ function createVisualisation(){
         .attr('stroke-width','2px')
         .attr('d','')
 
+    var highlightcircle = svg.append('circle')
+        .attr('class','gv-highlightcircle')
+        .attr('fill','#dc2a7d')
+        .attr('cx',0)
+        .attr('cy',vizMarginTop)
+
+    var pointerLine = svg.append('line')
+        .attr('class','gv-pointerline')
+        .attr('x1',40.5)
+        .attr('x2',40.5)
+        .attr('y1',vizMarginTop)
+        .attr('y2',vizMarginTop)
+        .attr('stroke','#dc2a7d')
+        .attr('stroke-width',1)
+
     return targetEl.innerHTML
 }
 
-function animateVisualisation(el,highlightDate,isFirst){
+
+function animateVisualisation(el,highlightDate,newQuote,oldQuote,isFirst){
     var hasFound = false;
     var highlightLine = select(el).select('svg .gv-highlightline');
+    var highlightCircle = select(el).select('.gv-highlightcircle');
+    var pointerLine = select(el).select('.gv-pointerline');
     var lineLengthOld = isFirst ? 0 : highlightLine.node().getTotalLength();
-    var dataPoint;
-
     var customData = vizPoints.filter(function(e){
         if(e.date === highlightDate){
             hasFound = true;
-            dataPoint = e;
             return true
         }
 
         return !hasFound
     })
+    var lastValue = customData[customData.length - 1];
 
-    if(dataPoint){
-        el.querySelector('.interactive-highlight-label').innerHTML = dataPoint.comments;
-    }else{
-        el.querySelector('.interactive-highlight-label').innerHTML = "aaaah wrong date. does not compute"
-    }
-    // console.log(dataPoint);
 
     highlightLine.datum(customData).attr('d',lineFn)
     var lineLengthNew = highlightLine.node().getTotalLength();
     var transitionSpeed = (lineLengthNew - lineLengthOld)*2;
+    
 
-    console.log(lineLengthNew - lineLengthOld)
+    if(oldQuote){
+        oldQuote.style.opacity = 0;
+    }
+
+
+    highlightCircle
+        .datum(lastValue)
+        .attr('cx',function(d){
+            return wordScale(d.words)
+        })
+        .attr('r',4)
+    
 
     highlightLine
         .attr("stroke-dasharray", (lineLengthNew) + " " + (lineLengthNew))
@@ -124,7 +157,17 @@ function animateVisualisation(el,highlightDate,isFirst){
         .transition()
         .duration(transitionSpeed)
         .ease(easeLinear)
-        .attr("stroke-dashoffset", 0);
+        .attr("stroke-dashoffset", 0)
+        .on('end',function(d){
+            newQuote.style.opacity = 1;
+            pointerLine.datum(lastValue)
+                .attr('x1', function(d){return wordScale(d.words)})
+                .attr('x2', function(d){return wordScale(d.words)})
+                .attr('y2', vizHeight - vizMarginTop)
+        })
+
+
 }
+
 
 var vizHtml = createVisualisation();

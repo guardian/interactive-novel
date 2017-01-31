@@ -146,6 +146,9 @@
         .interactive-highlight-viz{
             max-width:620px;
             margin: 0 auto;
+            svg{
+              shape-rendering: auto;
+            }
         }
 
         .interactive-highlight-label{

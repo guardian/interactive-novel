@@ -76,13 +76,13 @@ function createVisualisation(){
         .attr('class','gv-baseline')
         .attr('fill','none')
         .attr('stroke','#333')
-        .attr('stroke-width','2px')
+        .attr('stroke-width','1px')
         .attr('d',lineFn)
 
     var highlightline = svg.append('path')
         .attr('class','gv-highlightline')
         .attr('fill','none')
-        .attr('stroke','#33ffff')
+        .attr('stroke','#dc2a7d')
         .attr('stroke-width','2px')
         .attr('d','')
 

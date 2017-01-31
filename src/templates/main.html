@@ -16,7 +16,11 @@
 		<div class="interactive-block">
 			<div class="interactive-highlight-container interactive-copy" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
 				<div class="interactive-highlight-viz"></div>
-				<p class="interactive-highlight-label"></p>
+				<div class="interactive-highlight-label">
+					{{#quotes}}
+						<p class="interactive-highlight-quote" data-date="{{date}}">{{quote}}</p>
+					{{/quotes}}
+				</div>
 			</div>
 		</div>
 		{{/highlight}}

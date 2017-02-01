@@ -21,7 +21,8 @@ export function initHighlight(el){
     })
 
     animateHighlight(el,quotes[count].date,quotes[count].quote,"",false);
-    
+
+
     setInterval(function(){
         var elOffset = el.getBoundingClientRect().top;
         var elHeight = el.getBoundingClientRect().height;
@@ -112,7 +113,6 @@ function createHighlight(vizWidth){
         .attr('stroke-width','2px')
         .attr('d','')
 
-
     var highlightcircle = svg.append('circle')
         .attr('class','gv-highlightcircle')
         .attr('fill','#dc2a7d')
@@ -125,8 +125,13 @@ function createHighlight(vizWidth){
         .attr('x2',40.5)
         .attr('y1',highlightMarginTop)
         .attr('y2',highlightMarginTop)
-        .attr('stroke','#dc2a7d')
+        .attr('stroke','#ccc')
         .attr('stroke-width',1)
+        .attr('stroke-linecap','round')
+        .attr('stroke-dasharray','2,4')
+
+
+
 
     return targetEl.innerHTML
 }
@@ -181,7 +186,7 @@ function animateHighlight(el,highlightDate,newQuote,oldQuote,isFirst){
           }
         }
       }
-    
+
 
     highlightLine
         .attr("stroke-dasharray", (lineLengthNew) + " " + (lineLengthNew))

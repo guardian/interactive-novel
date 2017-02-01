@@ -3,11 +3,11 @@ import {max} from 'd3-array'
 import {select,selectAll} from 'd3-selection'
 import {line} from 'd3-shape'
 import {easeLinear} from 'd3-ease'
-import {transition,duration,ease} from 'd3-transition'
+import {transition} from 'd3-transition'
 import data from '../assets/data.json'
 
-export default function(el){
-    el.querySelector('.interactive-highlight-viz').innerHTML = vizHtml
+export function initHighlight(el){
+    el.querySelector('.interactive-highlight-viz').innerHTML = highlightHtml
 
     var windowHeight = window.innerHeight;
     var looped = false;
@@ -20,12 +20,11 @@ export default function(el){
         }
     })
 
-    animateVisualisation(el,quotes[count].date,quotes[count].quote,"",false);
+    animateHighlight(el,quotes[count].date,quotes[count].quote,"",false);
     
     setInterval(function(){
         var elOffset = el.getBoundingClientRect().top;
         var elHeight = el.getBoundingClientRect().height;
-        console.log(document.hidden)
         if(elOffset <= -elHeight || elOffset > windowHeight || document.hidden){return;}
 
 
@@ -36,7 +35,7 @@ export default function(el){
         var date = quotes[count].date;
         var newQuote = quotes[count].quote;
         
-        animateVisualisation(el,date,newQuote,oldQuote,count === 0 && looped);
+        animateHighlight(el,date,newQuote,oldQuote,count === 0 && looped);
 
         oldQuote = newQuote;
     },6000)
@@ -44,24 +43,34 @@ export default function(el){
 
 
 
+export function initGraphic(el,index){
+    if(index === 0){
+        el.querySelector('.interactive-graphic-viz').innerHTML = createSummary(false);
+    }else{
+        el.querySelector('.interactive-graphic-viz').innerHTML = createSummary(true);
+
+    }   
+}
+
+
 // Viz variables
-var vizPoints = [];
-var vizMargin = 0;
-var vizMarginTop = 10;
-var vizWidth = document.querySelector('.interactive-highlight-viz').offsetWidth - vizMargin*2;
-var vizHeight = vizWidth/4;
+var highlightPoints = [];
+var highlightMargin = 0;
+var highlightMarginTop = 10;
+var highlightWidth = document.querySelector('.interactive-highlight-viz').offsetWidth - highlightMargin*2;
+var highlightHeight = highlightWidth/4;
 
 var maxPages = 44030;
 var maxOffset = max(data,function(d){
     return Number(d.day_gap)
 });
 
-var offsetScale = scaleLinear().domain([0,maxOffset]).range([vizMarginTop,vizHeight-vizMarginTop]);
-var wordScale = scaleLinear().domain([0,maxPages]).range([vizMarginTop,vizWidth - vizMarginTop]);
+var offsetScale = scaleLinear().domain([0,maxOffset]).range([highlightMarginTop,highlightHeight - highlightMarginTop]);
+var wordScale = scaleLinear().domain([0,maxPages]).range([highlightMarginTop,highlightWidth - highlightMarginTop]);
 
 var lineFn = line()
     .x(function(d,i){
-        if(i > 0){return wordScale(d.words - ((d.words - vizPoints[i-1].words)))
+        if(i > 0){return wordScale(d.words - ((d.words - highlightPoints[i-1].words)))
         }else{return 0}
     })
     .y(function(d,i){
@@ -69,18 +78,18 @@ var lineFn = line()
     })
 
 
-function createVisualisation(){
+function createHighlight(vizWidth){
     var targetEl = document.createElement('div')
 
     var svg = select(targetEl).append('svg')
-        .attr('width',vizWidth)
-        .attr('height',vizHeight)
+        .attr('width',highlightWidth)
+        .attr('height',highlightHeight)
 
     // Fill points
     data.forEach(function(e,i){
-        vizPoints.push(e);
+        highlightPoints.push(e);
         if(i < data.length - 1){
-            vizPoints.push({
+            highlightPoints.push({
                 "blank": true,
                 "day_gap": 0,
                 "words": e.words + ((data[i+1].words - e.words)/2)
@@ -89,7 +98,7 @@ function createVisualisation(){
     })
 
     var baseline = svg.append('path')
-        .datum(vizPoints)
+        .datum(highlightPoints)
         .attr('class','gv-baseline')
         .attr('fill','none')
         .attr('stroke','#333')
@@ -103,20 +112,19 @@ function createVisualisation(){
         .attr('stroke-width','2px')
         .attr('d','')
 
+
     var highlightcircle = svg.append('circle')
         .attr('class','gv-highlightcircle')
         .attr('fill','#dc2a7d')
-        .attr('transform','translate(3,' + vizMarginTop +')')
-        // .attr('cx',3)
-        // .attr('cy',vizMarginTop)
+        .attr('transform','translate(3,' + highlightMarginTop +')')
         .attr('r',3)
 
     var pointerLine = svg.append('line')
         .attr('class','gv-pointerline')
         .attr('x1',40.5)
         .attr('x2',40.5)
-        .attr('y1',vizMarginTop)
-        .attr('y2',vizMarginTop)
+        .attr('y1',highlightMarginTop)
+        .attr('y2',highlightMarginTop)
         .attr('stroke','#dc2a7d')
         .attr('stroke-width',1)
 
@@ -124,14 +132,14 @@ function createVisualisation(){
 }
 
 
-function animateVisualisation(el,highlightDate,newQuote,oldQuote,isFirst){
+function animateHighlight(el,highlightDate,newQuote,oldQuote,isFirst){
     var hasFound = false;
     var highlightLine = select(el).select('svg .gv-highlightline');
     var highlightCircle = select(el).select('.gv-highlightcircle');
     var pointerLine = select(el).select('.gv-pointerline');
-        pointerLine.attr('y2',vizMarginTop)
+        pointerLine.attr('y2',highlightMarginTop)
     var lineLengthOld = isFirst ? 0 : highlightLine.node().getTotalLength();
-    var customData = vizPoints.filter(function(e){
+    var customData = highlightPoints.filter(function(e){
         if(e.date === highlightDate){
             hasFound = true;
             return true
@@ -140,6 +148,8 @@ function animateVisualisation(el,highlightDate,newQuote,oldQuote,isFirst){
         return !hasFound
     })
     var lastValue = customData[customData.length - 1];
+
+    wordScale.range([highlightMarginTop,highlightWidth - highlightMarginTop]);
 
     highlightLine.datum(customData).attr('d',lineFn)
     var lineLengthNew = highlightLine.node().getTotalLength();
@@ -194,16 +204,79 @@ function animateVisualisation(el,highlightDate,newQuote,oldQuote,isFirst){
                 .attr('y1',function(){
                     return highlightLine.node().getPointAtLength(highlightLine.node().getTotalLength()).y;
                 })
-                .attr('y2', vizHeight - vizMarginTop)
-                .attr("stroke-dasharray", (vizHeight - vizMarginTop) + " " + (vizHeight - vizMarginTop))
-                .attr("stroke-dashoffset", vizHeight - vizMarginTop)
+                .attr('y2', highlightHeight - highlightMarginTop)
+                .attr("stroke-dasharray", (highlightHeight - highlightMarginTop) + " " + (highlightHeight - highlightMarginTop))
+                .attr("stroke-dashoffset", highlightHeight - highlightMarginTop)
                 .transition()
                 .duration(500)
                 .attr("stroke-dashoffset", 0)
         })
-
-
 }
 
 
-var vizHtml = createVisualisation();
+// Summary
+var summaryWidth = document.querySelector('.interactive-graphic-viz').offsetWidth - highlightMargin*2;
+var summaryHeight = summaryWidth / 6;
+var summaryScale = scaleLinear().domain([0,maxPages]).range([highlightMarginTop,summaryWidth - highlightMarginTop]);
+var summaryPoints = [];
+var straightLineFn = line()
+        .x(function(d,i){
+            if(i > 0){return summaryScale(d.words - ((d.words - summaryPoints[i-1].words)))}
+            else{ return 0}
+        })
+        .y(function(d,i){
+            console.log(d.gap)
+            return offsetScale(d.gap ? d.gap : 0)
+        })
+
+
+function createSummary(animates){
+    console.log('hello, in here')
+    var targetEl = document.createElement('div')
+    var svg = select(targetEl).append('svg')
+        .attr('width',summaryWidth)
+        .attr('height',summaryHeight)
+
+    summaryPoints = [];
+
+    // Fill points
+    data.forEach(function(e,i){
+        summaryPoints.push(e);
+        if(i < data.length - 1){
+            summaryPoints.push({
+                "blank": true,
+                "day_gap": 0,
+                "words": e.words + ((data[i+1].words - e.words)/2)
+            })
+        }
+    })
+
+    summaryPoints.map(function(e){
+        e.gap = 0;
+        return e;
+    })
+
+    var summaryBaseline = svg.append('path')
+        .datum(summaryPoints)
+        .attr('class','gv-baseline')
+        .attr('fill','none')
+        .attr('stroke','#333')
+        .attr('stroke-width','1px')
+        .attr('d',straightLineFn)
+
+    if(animates){
+        summaryPoints.map(function(e){e.gap = e.day_gap; return e;})
+
+        summaryBaseline.datum(summaryPoints)
+            .transition()
+            .attr('stroke','blue')
+            .attr('d',straightLineFn) 
+
+        
+    }
+
+    return targetEl.innerHTML
+}
+
+var highlightHtml = createHighlight();
+

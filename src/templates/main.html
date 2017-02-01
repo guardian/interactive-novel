@@ -8,8 +8,10 @@
 	{{#graphic}}
 		{{^highlight}}
 		<div class="interactive-block">
-			<p class="label-graphic">{{{label}}}</p>
-			<figure class="interactive element--immersive element-interactive" data-interactive="{{{embed-url}}}" data-canonical-url="{{{embed-url}}}"></figure>
+			<div class="interactive-graphic">
+				<div class="interactive-graphic-viz"></div>
+				<p class="label-graphic">{{{label}}}</p>
+			</div>
 		</div>
 		{{/highlight}}
 		{{#highlight}}

@@ -8,7 +8,7 @@
 	{{#graphic}}
 		{{^highlight}}
 		<div class="interactive-block">
-			<div class="interactive-graphic">
+			<div class="interactive-graphic" data-id="{{id}}">
 				<div class="interactive-graphic-viz"></div>
 				<p class="label-graphic">{{{label}}}</p>
 			</div>
@@ -16,7 +16,7 @@
 		{{/highlight}}
 		{{#highlight}}
 		<div class="interactive-block">
-			<div class="interactive-highlight-container interactive-copy" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
+			<div class="interactive-highlight-container interactive-copy" data-active="false" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
 				<div class="interactive-highlight-viz"></div>
 				<div class="interactive-highlight-label">
 					{{#quotes}}

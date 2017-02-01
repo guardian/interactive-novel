@@ -154,6 +154,9 @@ $colour2: #27a9e1;
             @include fs-header(4);
             padding:8px;
             margin: 0 auto;
+            svg{
+              shape-rendering: auto;
+            }
         }
 
         .interactive-highlight-label{

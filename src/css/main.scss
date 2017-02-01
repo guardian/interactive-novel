@@ -142,9 +142,9 @@ $colour2: #27a9e1;
     }
 
     span.author-illustration {
-    background: url("./assets/wyl-quote1.jpg");
-    width:126px;
-    height:104px;
+    background: url("./assets/wyl-quote1-small.jpg");
+    width:100px;
+    height:83px;
     display:block;
     float:left;
     margin-right:10px;
@@ -152,7 +152,7 @@ $colour2: #27a9e1;
     }
 
     .interactive-highlight-quote:nth-child(2n) .author-illustration {
-    background: url("./assets/wyl-quote2.jpg");
+    background: url("./assets/wyl-quote2-small.jpg");
     }
 
     .interactive-highlight-container{
@@ -203,7 +203,7 @@ $colour2: #27a9e1;
             transition: 1s opacity;
 
             @include mq($from:mobile, $until:mobileLandscape) {
-            width:300px;
+            width:320px;
             }
         }
     }

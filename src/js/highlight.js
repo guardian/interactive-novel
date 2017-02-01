@@ -49,7 +49,7 @@ var vizPoints = [];
 var vizMargin = 0;
 var vizMarginTop = 10;
 var vizWidth = document.querySelector('.interactive-highlight-viz').offsetWidth - vizMargin*2;
-var vizHeight = vizWidth/4;
+var vizHeight = vizWidth/3;
 
 var maxPages = 44030;
 var maxOffset = max(data,function(d){
@@ -110,7 +110,7 @@ function createVisualisation(){
         .attr('x2',40.5)
         .attr('y1',vizMarginTop)
         .attr('y2',vizMarginTop)
-        .attr('stroke','#ccc')
+        .attr('stroke','#999')
         .attr('stroke-width',1)
         .attr('stroke-linecap','round')
         .attr('stroke-dasharray','2,4')
@@ -188,6 +188,8 @@ function animateVisualisation(el,highlightDate,newQuote,oldQuote,isFirst){
         .attr("stroke-dashoffset", 0)
         .on('end',function(d){
             newQuote.style.opacity = 1;
+
+
             pointerLine
                 .attr('x1', function(d){
                     var lastPathPoint = highlightLine.node().getPointAtLength(highlightLine.node().getTotalLength()).x;
@@ -200,9 +202,10 @@ function animateVisualisation(el,highlightDate,newQuote,oldQuote,isFirst){
                 .attr('y1',function(){
                     return highlightLine.node().getPointAtLength(highlightLine.node().getTotalLength()).y;
                 })
-                .attr('y2', vizHeight - vizMarginTop)
-                .attr("stroke-dasharray", (vizHeight - vizMarginTop) + " " + (vizHeight - vizMarginTop))
+                .attr('y2', vizHeight - vizMarginTop +60)
+                //.attr("stroke-dasharray", (vizHeight - vizMarginTop) + " " + (vizHeight - vizMarginTop))
                 .attr("stroke-dashoffset", vizHeight - vizMarginTop)
+                .attr("stroke-dasharray","1,3")
                 .transition()
                 .duration(500)
                 .attr("stroke-dashoffset", 0)

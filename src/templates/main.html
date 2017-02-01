@@ -10,13 +10,16 @@
 		<div class="interactive-block">
 			<div class="interactive-graphic" data-id="{{id}}">
 				<div class="interactive-graphic-viz"></div>
-				<p class="label-graphic">{{{label}}}</p>
+				<!-- <p class="label-graphic">{{{label}}}</p> -->
 			</div>
 		</div>
 		{{/highlight}}
 		{{#highlight}}
-		<div class="interactive-block">
-			<div class="interactive-highlight-container interactive-copy" data-active="false" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
+		<div class="interactive-block" style="margin-top:20px;">
+			<div class="interactive-copy">
+			<span class="label-chart left-col">Beginning of book</span><span class="label-chart right-col">End</span>
+			</div>
+			<div class="interactive-highlight-container interactive-copy" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
 				<div class="interactive-highlight-viz"></div>
 				<div class="interactive-highlight-label">
 					{{#quotes}}

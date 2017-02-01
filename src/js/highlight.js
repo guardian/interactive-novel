@@ -42,6 +42,7 @@ function checkElPosition(){
         }
     })
 
+
     summaryEls.forEach(function(el,i){
         var offsetTop = el.getBoundingClientRect().top;
 
@@ -62,12 +63,12 @@ export function initGraphic(el,index){
 
 
 // Viz variables
+
 var highlightPoints = [];
 var highlightMargin = 0;
 var highlightMarginTop = 10;
 var highlightWidth = document.querySelector('.interactive-highlight-viz').offsetWidth - highlightMargin*2;
-var highlightHeight = highlightWidth/4;
-
+var highlightHeight = highlightWidth/3;
 var maxPages = 44030;
 var maxOffset = max(data,function(d){
     return Number(d.day_gap)
@@ -126,7 +127,7 @@ function createHighlight(vizWidth){
         .attr('x2',40.5)
         .attr('y1',highlightMarginTop)
         .attr('y2',highlightMarginTop)
-        .attr('stroke','#ccc')
+        .attr('stroke','#999')
         .attr('stroke-width',1)
         .attr('stroke-linecap','round')
         .attr('stroke-dasharray','2,4')
@@ -206,6 +207,7 @@ function animateHighlight(el,quotes,count,oldQuote,isFirst){
         .attr("stroke-dashoffset", 0)
         .on('end',function(d){
             quote.style.opacity = 1;
+
             pointerLine
                 .attr('x1', function(d){
                     var lastPathPoint = highlightLine.node().getPointAtLength(highlightLine.node().getTotalLength()).x;
@@ -218,8 +220,9 @@ function animateHighlight(el,quotes,count,oldQuote,isFirst){
                 .attr('y1',function(){
                     return highlightLine.node().getPointAtLength(highlightLine.node().getTotalLength()).y;
                 })
-                .attr('y2', highlightHeight - highlightMarginTop)
-                .attr("stroke-dasharray", (highlightHeight - highlightMarginTop) + " " + (highlightHeight - highlightMarginTop))
+
+                .attr('y2', highlightHeight - highlightMarginTop + 60)
+                .attr("stroke-dasharray", "1,3")
                 .attr("stroke-dashoffset", highlightHeight - highlightMarginTop)
                 .transition()
                 .duration(500)
@@ -373,4 +376,3 @@ function animateSummary(el){
 }
 
 var highlightHtml = createHighlight();
-

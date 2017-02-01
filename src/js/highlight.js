@@ -236,7 +236,6 @@ var straightLineFn = line()
 
 
 function createSummary(animates){
-    console.log('hello, in here')
     var targetEl = document.createElement('div')
     var svg = select(targetEl).append('svg')
         .attr('width',summaryWidth)

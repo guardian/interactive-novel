@@ -46,10 +46,9 @@ export function initHighlight(el){
 
 export function initGraphic(el,index){
     if(index === 0){
-        el.querySelector('.interactive-graphic-viz').innerHTML = createSummary(false);
+        createSummary(false);
     }else{
-        el.querySelector('.interactive-graphic-viz').innerHTML = createSummary(true);
-
+        createSummary(true);
     }   
 }
 
@@ -230,15 +229,12 @@ var straightLineFn = line()
             else{ return 0}
         })
         .y(function(d,i){
-            console.log(d.gap)
             return offsetScale(d.gap ? d.gap : 0)
         })
 
 
 function createSummary(animates){
-    console.log('hello, in here')
-    var targetEl = document.createElement('div')
-    var svg = select(targetEl).append('svg')
+    var svg = select(".interactive-graphic-viz").append('svg')
         .attr('width',summaryWidth)
         .attr('height',summaryHeight)
 
@@ -274,13 +270,9 @@ function createSummary(animates){
 
         summaryBaseline.datum(summaryPoints)
             .transition()
-            .attr('stroke','blue')
+            .duration(3000)
             .attr('d',straightLineFn) 
-
-        
     }
-
-    return targetEl.innerHTML
 }
 
 var highlightHtml = createHighlight();

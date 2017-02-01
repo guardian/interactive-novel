@@ -141,6 +141,17 @@ $colour2: #27a9e1;
 
     }
 
+    span.author-illustration {
+    background: url("./assets/wyl-quote1.jpg");
+    width:126px;
+    height:104px;
+    display:inline-block;
+    }
+
+    .interactive-highlight-quote:nth-child(2n) .author-illustration {
+    background: url("./assets/wyl-quote2.jpg");
+    }  
+
     .interactive-highlight-container{
 
         .interactive-highlight-viz{
@@ -167,11 +178,11 @@ $colour2: #27a9e1;
         .interactive-highlight-quote{
             padding:0;
             height:100px;
-            background:$colour1;
+            background:transparent;
             margin:20px auto 20px;
             max-width:620px;
             width:350px;
-            color:#fff;
+            color:#333;
             font-size:18px;
             line-height:24px;
             position: absolute;

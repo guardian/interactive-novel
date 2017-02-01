@@ -21,7 +21,7 @@ export default function(el){
     })
 
     animateVisualisation(el,quotes[count].date,quotes[count].quote,"",false);
-    
+
     setInterval(function(){
         var elOffset = el.getBoundingClientRect().top;
         var elHeight = el.getBoundingClientRect().height;
@@ -35,7 +35,7 @@ export default function(el){
 
         var date = quotes[count].date;
         var newQuote = quotes[count].quote;
-        
+
         animateVisualisation(el,date,newQuote,oldQuote,count === 0 && looped);
 
         oldQuote = newQuote;
@@ -103,6 +103,18 @@ function createVisualisation(){
         .attr('stroke-width','2px')
         .attr('d','')
 
+
+    var pointerLine = svg.append('line')
+        .attr('class','gv-pointerline')
+        .attr('x1',40.5)
+        .attr('x2',40.5)
+        .attr('y1',vizMarginTop)
+        .attr('y2',vizMarginTop)
+        .attr('stroke','#ccc')
+        .attr('stroke-width',1)
+        .attr('stroke-linecap','round')
+        .attr('stroke-dasharray','2,4')
+
     var highlightcircle = svg.append('circle')
         .attr('class','gv-highlightcircle')
         .attr('fill','#dc2a7d')
@@ -111,14 +123,8 @@ function createVisualisation(){
         // .attr('cy',vizMarginTop)
         .attr('r',3)
 
-    var pointerLine = svg.append('line')
-        .attr('class','gv-pointerline')
-        .attr('x1',40.5)
-        .attr('x2',40.5)
-        .attr('y1',vizMarginTop)
-        .attr('y2',vizMarginTop)
-        .attr('stroke','#dc2a7d')
-        .attr('stroke-width',1)
+
+
 
     return targetEl.innerHTML
 }
@@ -171,7 +177,7 @@ function animateVisualisation(el,highlightDate,newQuote,oldQuote,isFirst){
           }
         }
       }
-    
+
 
     highlightLine
         .attr("stroke-dasharray", (lineLengthNew) + " " + (lineLengthNew))

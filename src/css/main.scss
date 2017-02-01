@@ -145,24 +145,28 @@ $colour2: #27a9e1;
     background: url("./assets/wyl-quote1.jpg");
     width:126px;
     height:104px;
-    display:inline-block;
+    display:block;
+    float:left;
+    margin-right:10px;
+    margin-bottom:100px;
     }
 
     .interactive-highlight-quote:nth-child(2n) .author-illustration {
     background: url("./assets/wyl-quote2.jpg");
-    }  
+    }
 
     .interactive-highlight-container{
 
         .interactive-highlight-viz{
             max-width:620px;
             background:transparent;
-            min-height:200px;
+            //min-height:200px;
             margin: 0 auto;
         }
 
         p{
-            @include fs-header(4);
+            @include fs-data(4)
+            //@include fs-header(4);
             padding:8px;
             margin: 0 auto;
             svg{
@@ -172,22 +176,34 @@ $colour2: #27a9e1;
 
         .interactive-highlight-label{
           position: relative;
-          min-height:200px;
+          min-height:170px;
+
+          @include mq($from:mobile, $until:mobileLandscape){
+          min-height:190px;
+          }
         }
+
+        // .interactive-highlight-container .interactive-highlight-label:nth-child(4){
+        //   min-height:250px;
+        // }
 
         .interactive-highlight-quote{
             padding:0;
             height:100px;
             background:transparent;
-            margin:20px auto 20px;
+            margin:5px auto 20px;
             max-width:620px;
-            width:350px;
-            color:#333;
-            font-size:18px;
-            line-height:24px;
+            width:380px;
+            color:#767676;
+            font-size:16px;
+            line-height:22px;
             position: absolute;
             top:0;
             opacity:0;
             transition: 1s opacity;
+
+            @include mq($from:mobile, $until:mobileLandscape) {
+            width:300px;
+            }
         }
     }

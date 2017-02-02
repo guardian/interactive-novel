@@ -251,7 +251,7 @@ function animateHighlight(el,quotes,count,oldQuote,isFirst){
 
 // Summary
 var summaryWidth = document.querySelector('.interactive-graphic-viz').offsetWidth - highlightMargin*2;
-var summaryHeight = summaryWidth / 6;
+var summaryHeight = highlightHeight;
 var summaryScale = scaleLinear().domain([0,maxPages]).range([highlightMarginTop,summaryWidth - highlightMarginTop]);
 var summaryPoints = [];
 var straightLineFn = line()
@@ -260,7 +260,7 @@ var straightLineFn = line()
         else{ return 0}
     })
     .y(function(d,i){
-        return offsetScale(d.gap ? d.gap : 0)
+        return offsetScale(d.linegap ? d.linegap : 0)
     })
 
 
@@ -277,14 +277,20 @@ function createSummary(el,animates){
         if(i < data.length - 1){
             summaryPoints.push({
                 "blank": true,
-                "day_gap": 0,
+                "linegap": 0,
                 "words": e.words + ((data[i+1].words - e.words)/2)
+            })
+        }else{
+            summaryPoints.push({
+                "blank": true,
+                "linegap": 200,
+                "words": 200
             })
         }
     })
 
     summaryPoints.map(function(e){
-        e.gap = 0.5;
+        e.linegap = 0.5;
         return e;
     })
 
@@ -366,7 +372,7 @@ function animateSummary(el){
             .duration(speed/10)
             .attr('opacity',1)
 
-        summaryPoints.map(function(e){e.gap = e.day_gap; return e;})
+        summaryPoints.map(function(e){e.linegap = e.day_gap; return e;})
 
         summaryBaseline.datum(summaryPoints)
             .transition()

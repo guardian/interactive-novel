@@ -9,8 +9,11 @@
 		{{^highlight}}
 		<div class="interactive-block">
 			<div class="interactive-graphic" data-id="{{id}}">
+				<!-- <div class="interactive-copy"> -->
+					<div class="book-author"></div>
+				<span class="label-chart left-col">Beginning of book</span><span class="label-chart right-col">End</span>
+				<!-- </div> -->
 				<div class="interactive-graphic-viz"></div>
-				<!-- <p class="label-graphic">{{{label}}}</p> -->
 			</div>
 		</div>
 		{{/highlight}}
@@ -23,7 +26,7 @@
 				<div class="interactive-highlight-viz"></div>
 				<div class="interactive-highlight-label">
 					{{#quotes}}
-						<p class="interactive-highlight-quote" data-date="{{date}}"><span class="author-illustration"></span>{{quote}}</p>
+						<p class="interactive-highlight-quote" data-date="{{date}}"><span class="author-illustration"></span>{{quote}}</br><span class="label-chart" style="display:block;color:#bdbdbd;">{{metadata}}</span></p>
 					{{/quotes}}
 				</div>
 			</div>

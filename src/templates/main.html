@@ -7,15 +7,23 @@
 	{{/firstBlock}}
 	{{#graphic}}
 		{{^highlight}}
+		{{^author}}
+	<div class="interactive-block">
+		<div class="interactive-graphic" data-id="{{id}}">
+			<span class="label-chart left-col top-chart">Beginning of book</span><span class="label-chart label-scenario"><b>How much longer it took him to finish the book</b></span><span class="label-chart right-col">End</span>
+			<div class="interactive-graphic-viz"></div>
+		</div>
+	</div>
+	{{/author}}
+		{{#author}}
 		<div class="interactive-block">
 			<div class="interactive-graphic" data-id="{{id}}">
-				<!-- <div class="interactive-copy"> -->
 					<div class="book-author"></div>
-				<span class="label-chart left-col">Beginning of book</span><span class="label-chart right-col">End</span>
-				<!-- </div> -->
+				<span class="label-chart left-col top-chart">Beginning of book</span><span class="label-chart label-scenario"><b>As planned</b> Horizontal line indicates no detour </span><span class="label-chart right-col">End</span>
 				<div class="interactive-graphic-viz"></div>
 			</div>
 		</div>
+		{{/author}}
 		{{/highlight}}
 		{{#highlight}}
 		<div class="interactive-block" style="margin-top:20px;">

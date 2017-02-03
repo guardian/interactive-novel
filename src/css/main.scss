@@ -138,8 +138,16 @@ $colour2: #27a9e1;
   float:left;
   display:inline-block;
 
-  @include mq($from:desktop){
+  @include mq($from:wide){
+  margin-left:170px;
+}
+
+  @include mq($from:desktop, $until:wideDesktop){
   margin-left:250px;
+}
+
+@include mq($from:wideDesktop, $until:wide){
+margin-left:90px;
 }
 
   @include mq($from:tablet, $until:desktop){
@@ -173,9 +181,16 @@ $colour2: #27a9e1;
     }
   }
 
+  #break-label {
+    position:relative;
+    top:-170px;
+    left:430px;
+    width: 250px;
+  }
+
   #drop-label {
     position:relative;
-    top:-80px;
+    top:-60px;
 
     @include mq($from:wideDesktop){
       left:430px;

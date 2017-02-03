@@ -142,8 +142,12 @@ div[data-id="ideal"] .label-chart,#drop-label{
   float:left;
   display:inline-block;
 
-  @include mq($from:tablet, $until:wide){
-  margin-left:200px;
+  @include mq($from:desktop){
+  margin-left:250px;
+}
+
+  @include mq($from:tablet, $until:desktop){
+  margin-left:170px;
 }
 
   @include mq($from:mobileLandscape, $until:tablet){
@@ -153,39 +157,48 @@ div[data-id="ideal"] .label-chart,#drop-label{
 
   #axis-label {
   position:relative;
+
+  @include mq($from:tablet){
+    top:-200px;
+  }
+
   @include mq($from:mobileLandscape, $until:tablet){
-    top:-140px;
+    top:-188px;
   }
 
-  @include mq($from:tablet, $until:wide){
-    top:-200px;
-  }
-
-  @include mq(wide){
-    top:-200px;
-  }
-
-  @include mq($from:mobile, $until:mobileLandscape){
-    top:-110px;
+  @include mq($until:mobileLandscape){
+    top:-125px;
   }
 }
 
+  #horizontal-label {
+    @include mq($from:desktop){
+      left:600px;
+    }
+  }
+
   #drop-label {
     position:relative;
+    top:120px;
+
+    @include mq($from:wideDesktop){
+      left:430px;
+    }
+
+    @include mq($from:desktop, $until:wideDesktop){
+      left:320px;
+    }
+
+    @include mq($from:tablet, $until:desktop){
+      left:300px;
+    }
 
     @include mq($from:mobileLandscape, $until:tablet){
-      top:120px;
-      left:180px;
+      left:230px;
     }
 
-    @include mq($from:mobile, $until:mobileLandscape){
-      top:120px;
-      left:125px;
-    }
-
-    @include mq(mobile){
-      top:120px;
-      left:105px;
+    @include mq($until:mobileLandscape){
+      left:155px;
     }
   }
 

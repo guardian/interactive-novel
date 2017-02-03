@@ -10,8 +10,11 @@
 		{{^author}}
 	<div class="interactive-block">
 		<div class="interactive-graphic" data-id="{{id}}">
-			<span class="label-chart left-col top-chart">Beginning of book</span><span class="label-chart label-scenario"><b>How much longer it took him to finish the book</b></span><span class="label-chart right-col">End</span>
+			<span class="label-chart left-col" id="second-chart-beginning">Begins novel</span><span class="label-chart right-col">Finishes novel</span>
 			<div class="interactive-graphic-viz"></div>
+		</div>
+		<div class="interactive-block">
+			  <div class="label-chart label-scenario" id="drop-label">Drop indicates delay from initial plan</div>
 		</div>
 	</div>
 	{{/author}}
@@ -19,8 +22,11 @@
 		<div class="interactive-block">
 			<div class="interactive-graphic" data-id="{{id}}">
 					<div class="book-author"></div>
-				<span class="label-chart left-col top-chart">Beginning of book</span><span class="label-chart label-scenario"><b>As planned</b> Horizontal line indicates no detour </span><span class="label-chart right-col">End</span>
+				<span class="label-chart left-col" id="top-chart-beginning">Begins novel</span><span class="label-chart label-scenario"><b>Horizontal line indicates no detour</b></span><span class="label-chart right-col">Finishes in 123 days</span>
 				<div class="interactive-graphic-viz"></div>
+			</div>
+			<div class="interactive-block">
+				<div class="label-chart" style="color:#bdbdbd;" id="axis-label">Number of words</div>
 			</div>
 		</div>
 		{{/author}}
@@ -28,7 +34,7 @@
 		{{#highlight}}
 		<div class="interactive-block" style="margin-top:20px;">
 			<div class="interactive-copy">
-			<span class="label-chart left-col">Beginning of book</span><span class="label-chart right-col">End</span>
+			<span class="label-chart left-col">Begins novel</span><span class="label-chart right-col">Finishes</span>
 			</div>
 			<div class="interactive-highlight-container interactive-copy" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
 				<div class="interactive-highlight-viz"></div>

@@ -10,11 +10,11 @@
 		{{^author}}
 	<div class="interactive-block">
 		<div class="interactive-graphic" data-id="{{id}}">
-			<span class="label-chart left-col" id="second-chart-beginning">Begins novel</span><span class="label-chart right-col">Finishes novel</span>
+			<span class="label-chart left-col" id="second-chart-beginning">Begins novel</span><span class="label-chart right-col">Finishes novel in 642 days</span>
 			<div class="interactive-graphic-viz"></div>
 		</div>
 		<div class="interactive-block">
-			  <div class="label-chart label-scenario" id="drop-label">Drop indicates delay from initial plan</div>
+			  <div class="label-chart" id="drop-label"><b>Drop indicates delay from initial plan</b></div>
 		</div>
 	</div>
 	{{/author}}
@@ -22,7 +22,7 @@
 		<div class="interactive-block">
 			<div class="interactive-graphic" data-id="{{id}}">
 					<div class="book-author"></div>
-				<span class="label-chart left-col" id="top-chart-beginning">Begins novel</span><span class="label-chart label-scenario"><b>Horizontal line indicates no detour</b></span><span class="label-chart right-col">Finishes in 123 days</span>
+				<span class="label-chart left-col" id="top-chart-beginning">Begins novel</span><span class="label-chart label-scenario" id="horizontal-label"><b>Horizontal line indicates no detour</b></span><span class="label-chart right-col">Finishes novel in 123 days</span>
 				<div class="interactive-graphic-viz"></div>
 			</div>
 			<div class="interactive-block">
@@ -34,7 +34,7 @@
 		{{#highlight}}
 		<div class="interactive-block" style="margin-top:20px;">
 			<div class="interactive-copy">
-			<span class="label-chart left-col">Begins novel</span><span class="label-chart right-col">Finishes</span>
+			<span class="label-chart left-col">Begins novel</span><span class="label-chart right-col">Finishes novel</span>
 			</div>
 			<div class="interactive-highlight-container interactive-copy" data-dates="{{#quotes}}{{date}}, {{/quotes}}">
 				<div class="interactive-highlight-viz"></div>

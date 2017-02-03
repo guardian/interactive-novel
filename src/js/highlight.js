@@ -103,6 +103,12 @@ function createHighlight(vizWidth){
                 "day_gap": 0,
                 "words": e.words + ((data[i+1].words - e.words)/2)
             })
+        }else{
+            highlightPoints.push({
+                "blank": true,
+                "linegap": 0,
+                "words": 200
+            })
         }
     })
 
@@ -149,6 +155,7 @@ function animateHighlight(el,quotes,count,oldQuote,isFirst){
     var highlightDate = quotes[count].date;
     var quote = quotes[count].quote;
     var looped = false;
+    var baselineLength = select(el).select('svg .gv-baseline').node().getTotalLength();
     
     var highlightLine = select(el).select('svg .gv-highlightline');
     var highlightCircle = select(el).select('.gv-highlightcircle');
@@ -208,6 +215,10 @@ function animateHighlight(el,quotes,count,oldQuote,isFirst){
         .on('end',function(d){
             quote.style.opacity = 1;
 
+            if(lineLengthNew > baselineLength/2){
+                quote.style.right = 0;
+            }
+
             pointerLine
                 .attr('x1', function(d){
                     var lastPathPoint = highlightLine.node().getPointAtLength(highlightLine.node().getTotalLength()).x;
@@ -230,14 +241,12 @@ function animateHighlight(el,quotes,count,oldQuote,isFirst){
 
             function nextStep(){
                 setTimeout(function(){
-                    console.log('checking ' + el)
                     var offsetTop = el.getBoundingClientRect().top;
                     if(offsetTop > windowHeight * 0.75 || offsetTop < -windowHeight/2){
                         console.log('not in view')
                         nextStep();
                         return;
                     }
-                    console.log('is in view')
                     var isLast = count === quotes.length - 1;
                     if(isLast){count = 0; looped = true;}
                     else{count++;}
@@ -269,6 +278,10 @@ function createSummary(el,animates){
         .attr('width',summaryWidth)
         .attr('height',summaryHeight)
 
+    if(!animates){
+        svg.attr('height','40px')
+    }
+
     summaryPoints = [];
 
     // Fill points
@@ -283,7 +296,7 @@ function createSummary(el,animates){
         }else{
             summaryPoints.push({
                 "blank": true,
-                "linegap": 200,
+                "linegap": 0,
                 "words": 200
             })
         }
@@ -310,7 +323,17 @@ function createSummary(el,animates){
             .attr("stroke-dasharray", summaryLineLength + " " + summaryLineLength)
             .attr("stroke-dashoffset", summaryLineLength)
     }else{
-        svg.attr('opacity',0)
+       svg.append('circle')
+            .attr('fill','#333')
+            .attr('cx',3)
+            .attr('cy',10)
+            .attr('r',3)
+
+        svg.append('circle')
+            .attr('fill','#333')
+            .attr('cx',summaryWidth - highlightMarginTop)
+            .attr('cy',10)
+            .attr('r',3)
     }
 }
 
@@ -318,7 +341,7 @@ function animateSummary(el){
     var summaryId = el.getAttribute('data-id');
     var svg = select(el).select('svg')
     var summaryBaseline = svg.select('.gv-baseline');
-    var speed = 6000;
+    var speed = 4000;
     if(summaryId === "ideal"){
         summaryBaseline
             .transition()
@@ -332,52 +355,35 @@ function animateSummary(el){
             .attr('cy',10)
             .attr('r',3)
         
-        var label = svg.append('g')
-            .attr('transform','translate(0,10)')
 
-        label.append('circle')
+        var endCircle = svg.append('circle')
             .attr('fill','#333')
             .attr('cx',0)
-            .attr('cy',0)
+            .attr('cy',10)
             .attr('r',3)
 
-        label.append('text')
-            .text('100 words')
-            .attr('dy',20)
-            .attr('dx',-10)
-            .attr('font-family','Arial')
-            .attr('font-size','12px')
-            .attr('fill',"#999")
-
-        label.transition()
+        endCircle.transition()
             .duration(speed)
             .ease(easeLinear)
-            .tween('attr.transform',function(i){
-                var node = this;
-                var textEl = node.querySelector('text');
-                var milestone = 1;
-                return function(t){
-                    var words = t * 44030;
-                    if((words/5000)>milestone){
-                        milestone++;
-                        textEl.innerHTML = (milestone * 5000)/1000 + ",000" + " words"
-                    }
-
-                    node.setAttribute('transform','translate(' +  (summaryWidth-highlightMarginTop) * t + ',10)')
-                }
+            .attr('cx',(summaryWidth-highlightMarginTop))
+            .on('end',function(){
+                select(el).selectAll('.label-chart')
+                    .transition()
+                    .style('opacity',1)
             })
-    }else if(summaryId === "real"){
-        svg
-            .transition()
-            .duration(speed/10)
-            .attr('opacity',1)
 
+    }else if(summaryId === "real"){
         summaryPoints.map(function(e){e.linegap = e.day_gap; return e;})
 
         summaryBaseline.datum(summaryPoints)
             .transition()
             .duration(speed)
             .attr('d',straightLineFn) 
+            .on('end',function(){
+                select(el).select('#drop-label')
+                    .transition()
+                    .style('opacity',1)
+            })
     }
 }
 

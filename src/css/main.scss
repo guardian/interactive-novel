@@ -117,6 +117,10 @@ $colour2: #27a9e1;
     line-height:18px;
     color: #333333;
     margin-bottom:-5px;
+    
+}
+div[data-id="ideal"] .label-chart,#drop-label{
+    opacity:0;
 }
 .left-col {
     float:left;
@@ -170,17 +174,17 @@ $colour2: #27a9e1;
     position:relative;
 
     @include mq($from:mobileLandscape, $until:tablet){
-      top:-50px;
+      top:120px;
       left:180px;
     }
 
     @include mq($from:mobile, $until:mobileLandscape){
-      top:-50px;
+      top:120px;
       left:125px;
     }
 
     @include mq(mobile){
-      top:-50px;
+      top:120px;
       left:105px;
     }
   }
@@ -245,10 +249,6 @@ $colour2: #27a9e1;
             min-height: 190px;
         }
 
-
-        // .interactive-highlight-container .interactive-highlight-label:nth-child(4){
-        //   min-height:250px;
-        // }
 
         .interactive-highlight-quote{
             padding:0;

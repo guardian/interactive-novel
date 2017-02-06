@@ -119,18 +119,29 @@ $colour2: #27a9e1;
     margin-bottom:-5px;
 
 }
-div[data-id="ideal"] .label-chart, #drop-label{
+    div[data-id="ideal"] .label-chart, div[data-id="real"] .label-chart {
     opacity:0;
-}
+    }
+
+    div[data-id="real"] .label-chart {
+      margin-top:20px;
+      margin-bottom:-65px;
+    }
+
+
 .left-col {
     float:left;
     display:inline-block;
 }
 
 #top-chart-beginning, #second-chart-beginning {
+  opacity:1;
   @include mq($from:mobile, $until:mobileLandscape){
   display:none;
   }
+}
+
+#second-chart-beginning {
 }
 
 .right-col {
@@ -172,16 +183,15 @@ margin-left:90px;
   position:relative;
 
   @include mq($from:tablet){
-    top:-200px;
-  }
-
-  @include mq($from:mobileLandscape, $until:tablet){
     top:-195px;
   }
 
+  @include mq($from:mobileLandscape, $until:tablet){
+    top:-140px;
+  }
+
   @include mq($until:mobileLandscape){
-    top:-125px;
-    display:none;
+    top:-130px;
   }
 }
 
@@ -192,19 +202,42 @@ margin-left:90px;
   }
 
   #break-label {
+    opacity:0;
     position:relative;
-    top:-170px;
-    left:430px;
+    top:100px;
     width: 250px;
+    color:#767676;
+
+    @include mq($from:wide){
+      left:450px;
+    }
+
+    @include mq($from:desktop, $until:wide){
+      left:380px;
+    }
+
+    @include mq($from:tablet, $until:desktop){
+      left:250px;
+    }
+
+    @include mq($from:mobileLandscape, $until:tablet){
+      left:230px;
+    }
+
+    @include mq($from:mobile, $until:mobileLandscape){
+      top:80px;
+      left:160px;
+    }
   }
 
-  #drop-label {
+   #drop-label {
     position:relative;
-    top:-120px;
+    top:80px;
+    opacity:0;
 
 
     @include mq($from:wideDesktop){
-      left:430px;
+      left:450px;
     }
 
     @include mq($from:desktop, $until:wideDesktop){

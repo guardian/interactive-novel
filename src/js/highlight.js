@@ -15,13 +15,13 @@ export function initHighlight(el){
 }
 
 function throttle (callback, limit) {
-    var wait = false;                 
-    return function () {              
-        if (!wait) {                  
-            callback.call();          
-            wait = true;              
-            setTimeout(function () {  
-                wait = false;         
+    var wait = false;
+    return function () {
+        if (!wait) {
+            callback.call();
+            wait = true;
+            setTimeout(function () {
+                wait = false;
             }, limit);
         }
     }
@@ -144,6 +144,18 @@ function createHighlight(vizWidth){
         .attr('transform','translate(3,' + highlightMarginTop +')')
         .attr('r',3)
 
+    var quoteStartCircle = svg.append('circle')
+        .attr('fill','#333')
+        .attr('cx',3)
+        .attr('cy',10)
+        .attr('r',3)
+
+
+    var quoteEndCircle = svg.append('circle')
+        .attr('fill','#333')
+        .attr('cx', highlightWidth-10)
+        .attr('cy',10)
+        .attr('r',3)
 
 
     return targetEl.innerHTML
@@ -156,12 +168,12 @@ function animateHighlight(el,quotes,count,oldQuote,isFirst){
     var quote = quotes[count].quote;
     var looped = false;
     var baselineLength = select(el).select('svg .gv-baseline').node().getTotalLength();
-    
+
     var highlightLine = select(el).select('svg .gv-highlightline');
     var highlightCircle = select(el).select('.gv-highlightcircle');
     var pointerLine = select(el).select('.gv-pointerline');
         pointerLine.attr('y2',highlightMarginTop)
-    
+
     var lineLengthOld = isFirst ? 0 : highlightLine.node().getTotalLength();
     var customData = highlightPoints.filter(function(e){
         if(e.date === highlightDate){
@@ -318,7 +330,7 @@ function createSummary(el,animates){
 
     if(!animates){
         var summaryLineLength = summaryBaseline.node().getTotalLength();
-        
+
         summaryBaseline
             .attr("stroke-dasharray", summaryLineLength + " " + summaryLineLength)
             .attr("stroke-dashoffset", summaryLineLength)
@@ -348,13 +360,20 @@ function animateSummary(el){
             .duration(speed)
             .ease(easeLinear)
             .attr('stroke-dashoffset',0)
+            .on('start', function(){
+              select(el).selectAll('#horizontal-label')
+                  .transition()
+                  .delay(200)
+                  .style('opacity',1)
+            })
+
 
         var startCircle = svg.append('circle')
             .attr('fill','#333')
             .attr('cx',3)
             .attr('cy',10)
             .attr('r',3)
-        
+
 
         var endCircle = svg.append('circle')
             .attr('fill','#333')
@@ -373,16 +392,27 @@ function animateSummary(el){
             })
 
     }else if(summaryId === "real"){
+        // console.log('animating real');
         summaryPoints.map(function(e){e.linegap = e.day_gap; return e;})
 
         summaryBaseline.datum(summaryPoints)
             .transition()
             .duration(speed)
-            .attr('d',straightLineFn) 
+            .attr('d',straightLineFn)
+            .on('start', function(){
+              select(el).selectAll("#drop-label")
+                  .transition()
+                  .delay(500)
+                  .style('opacity',1)
+            })
             .on('end',function(){
-                select(el).select('#drop-label')
-                    .transition()
-                    .style('opacity',1)
+                select(el).selectAll('.label-chart')
+                  .transition()
+                  .style('opacity',1);
+                select(el).selectAll('#break-label')
+                  .transition()
+                  .delay(700)
+                  .style('opacity',1)
             })
     }
 }

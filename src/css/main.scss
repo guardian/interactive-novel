@@ -42,8 +42,6 @@ $colour2: #27a9e1;
     position: relative;
     z-index: 3;
     @include mq($until: tablet) {
-      //  padding-left: 10px;
-        // padding-right: 10px;
     }
 }
 
@@ -124,8 +122,8 @@ $colour2: #27a9e1;
     }
 
     div[data-id="real"] .label-chart {
-      margin-top:20px;
-      margin-bottom:-65px;
+      margin-top:10px;
+      margin-bottom:-80px;
     }
 
 
@@ -206,7 +204,8 @@ margin-left:90px;
     position:relative;
     top:100px;
     width: 250px;
-    color:#767676;
+    background:rgba(255, 206, 75, 0.15);
+    padding:10px;
 
     @include mq($from:wide){
       left:450px;

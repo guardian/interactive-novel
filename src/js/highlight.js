@@ -438,9 +438,12 @@ function animateSummary(el){
                 svg.append('path').attr('class','drop-highlight')
                     .datum(dropPoints)
                     .attr('d',dropFn)
+                    .attr('fill','#fff')
                     .attr('stroke','none')
-                    .attr('fill','rgba(255, 206, 75, 0.3)')
                     .attr('mask','url(#mask-stripe)')
+                    .transition()
+                    .attr('fill','rgba(255, 206, 75, 0.3)')
+                    
             })
     }
 }

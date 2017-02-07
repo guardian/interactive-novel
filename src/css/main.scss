@@ -124,6 +124,10 @@ $colour2: #27a9e1;
     div[data-id="real"] .label-chart {
       margin-top:10px;
       margin-bottom:-83px;
+
+      @include mq($until:mobileLandscape){
+        margin-bottom:-100px;
+      }
     }
 
 
@@ -134,12 +138,10 @@ $colour2: #27a9e1;
 
 #top-chart-beginning, #second-chart-beginning {
   opacity:1;
-  @include mq($from:mobile, $until:mobileLandscape){
-  display:none;
-  }
-}
 
-#second-chart-beginning {
+  @include mq ($until:mobileLandscape){
+    margin-top:13px;
+  }
 }
 
 .right-col {
@@ -175,7 +177,12 @@ margin-left:90px;
   #axis-label2 {
     position:relative;
     top:-30px;
+
+    @include mq($until:mobileLandscape){
+      display:none;
+    }
   }
+
 
   #axis-label {
   position:relative;
@@ -185,18 +192,26 @@ margin-left:90px;
   }
 
   @include mq($from:mobileLandscape, $until:tablet){
-    top:-140px;
+    top:-180px;
   }
 
   @include mq($until:mobileLandscape){
-    top:-130px;
+    top:-105px;
+    width:60px;
   }
 }
 
   #horizontal-label {
+    position:relative;
     @include mq($from:desktop){
       left:600px;
     }
+
+    @include mq($until:mobileLandscape){
+      top:45px;
+      left:-73px;
+    }
+
   }
 
   #break-label {
@@ -225,7 +240,8 @@ margin-left:90px;
 
     @include mq($from:mobile, $until:mobileLandscape){
       top:80px;
-      left:160px;
+      left:120px;
+      width:180px;
     }
   }
 
@@ -252,7 +268,8 @@ margin-left:90px;
     }
 
     @include mq($until:mobileLandscape){
-      left:155px;
+      left:120px;
+      font-size:12px;
     }
   }
 
@@ -333,7 +350,7 @@ margin-left:90px;
             transition: 1s opacity;
 
             @include mq($from:mobile, $until:mobileLandscape) {
-            width:320px;
+            width:330px;
             }
 
         }

@@ -93,7 +93,7 @@ $colour2: #27a9e1;
 
 .challenge-title,
 .scenario-title {
-    @include fs-data(4);
+    @include fs-textSans(4);
     font-weight: 900;
     padding-right: 10px;
     font-size: 18px;
@@ -109,9 +109,9 @@ $colour2: #27a9e1;
 }
 
 .label-chart {
-    @include fs-data(2);
+    @include fs-textSans(2);
     //font-weight: 400;
-    font-size: 12px;
+    font-size: 13px;
     line-height:18px;
     color: #333333;
     margin-bottom:-5px;
@@ -123,7 +123,7 @@ $colour2: #27a9e1;
 
     div[data-id="real"] .label-chart {
       margin-top:10px;
-      margin-bottom:-80px;
+      margin-bottom:-83px;
     }
 
 
@@ -302,7 +302,7 @@ margin-left:90px;
         margin: 0 auto;
     }
     p {
-        @include fs-data(4) //@include fs-header(4);
+        @include fs-textSans(4) //@include fs-header(4);
         padding: 8px;
         margin: 0 auto;
         svg {

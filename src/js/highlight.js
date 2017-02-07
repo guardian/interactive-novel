@@ -440,9 +440,9 @@ function animateSummary(el){
                     .attr('d',dropFn)
                     .attr('fill','#fff')
                     .attr('stroke','none')
-                    .attr('mask','url(#mask-stripe)')
+                    .attr('stroke-width',9)
                     .transition()
-                    .attr('fill','rgba(255, 206, 75, 0.3)')
+                    .attr('stroke','rgba(255, 206, 75, 0.15)')
                     
             })
     }

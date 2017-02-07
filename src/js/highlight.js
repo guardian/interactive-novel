@@ -442,7 +442,7 @@ function animateSummary(el){
                     .attr('stroke','none')
                     .attr('stroke-width',9)
                     .transition()
-                    .attr('stroke','rgba(39, 168, 225, 0.2)')
+                    .attr('stroke','rgba(75, 198, 223, 0.2)')
 
             })
     }

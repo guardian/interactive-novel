@@ -1,7 +1,7 @@
 @import "mq";
 @import "fonts";
 $colour1: #dc2a7d;
-$colour2: #27a9e1;
+$colour2: #4bc6df;
 //$colour3:
 // Uncomment for embeds
 //@import "embed";
@@ -228,7 +228,7 @@ margin-left:90px;
     position:relative;
     top:100px;
     width: 250px;
-    background:rgba(39, 168, 225, 0.15);
+    background:rgba(75, 198, 223, 0.2);
     padding:10px;
 
     @include mq($from:wide){

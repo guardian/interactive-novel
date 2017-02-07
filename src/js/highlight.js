@@ -94,7 +94,7 @@ function createHighlight(vizWidth){
         .attr('width',highlightWidth)
         .attr('height',highlightHeight)
 
-    // Fill points
+  // Fill points
     data.forEach(function(e,i){
         highlightPoints.push(e);
         if(i < data.length - 1){
@@ -392,7 +392,6 @@ function animateSummary(el){
             })
 
     }else if(summaryId === "real"){
-        // console.log('animating real');
         summaryPoints.map(function(e){e.linegap = e.day_gap; return e;})
 
         summaryBaseline.datum(summaryPoints)

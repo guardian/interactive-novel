@@ -69,7 +69,7 @@ var highlightMargin = 0;
 var highlightMarginTop = 10;
 var highlightWidth = document.querySelector('.interactive-highlight-viz').offsetWidth - highlightMargin*2;
 var highlightHeight = highlightWidth/3;
-var maxPages = 44030;
+var maxPages = 44242;
 var maxOffset = max(data,function(d){
     return Number(d.day_gap)
 });
@@ -392,8 +392,26 @@ function animateSummary(el){
             })
 
     }else if(summaryId === "real"){
-        // console.log('animating real');
         summaryPoints.map(function(e){e.linegap = e.day_gap; return e;})
+
+        // Add bit for highlighted drop - not the cleanest solution
+        var dropPoints = [];
+        summaryPoints.forEach(function(p,i){
+            if(p.date === "27/09/2014"){
+                dropPoints.push(summaryPoints[i-1])
+                dropPoints.push(p)
+                dropPoints.push(summaryPoints[i+1])
+            } 
+        })
+        var dropFn = line()
+            .x(function(d,i){
+                if(i > 0){return summaryScale(d.words - ((d.words - dropPoints[i-1].words)))}
+                else{ return summaryScale(d.words - (dropPoints[i+1].words - d.words))}
+            })
+            .y(function(d,i){
+                return offsetScale(d.linegap ? d.linegap : 0)
+            })
+
 
         summaryBaseline.datum(summaryPoints)
             .transition()
@@ -413,6 +431,16 @@ function animateSummary(el){
                   .transition()
                   .delay(700)
                   .style('opacity',1)
+
+                svg.append('defs')
+                    .html('<pattern id="pattern-stripe"width="4" height="4"patternUnits="userSpaceOnUse"patternTransform="rotate(45)"> <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect> </pattern> <mask id="mask-stripe"> <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" /> </mask>')
+
+                svg.append('path').attr('class','drop-highlight')
+                    .datum(dropPoints)
+                    .attr('d',dropFn)
+                    .attr('stroke','none')
+                    .attr('fill','rgba(255, 206, 75, 0.3)')
+                    .attr('mask','url(#mask-stripe)')
             })
     }
 }

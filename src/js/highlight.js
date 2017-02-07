@@ -401,7 +401,7 @@ function animateSummary(el){
                 dropPoints.push(summaryPoints[i-1])
                 dropPoints.push(p)
                 dropPoints.push(summaryPoints[i+1])
-            } 
+            }
         })
         var dropFn = line()
             .x(function(d,i){
@@ -442,8 +442,8 @@ function animateSummary(el){
                     .attr('stroke','none')
                     .attr('stroke-width',9)
                     .transition()
-                    .attr('stroke','rgba(255, 206, 75, 0.15)')
-                    
+                    .attr('stroke','rgba(39, 168, 225, 0.2)')
+
             })
     }
 }

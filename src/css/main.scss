@@ -379,7 +379,7 @@ margin-left:90px;
   .ad-wrapper--mobile {
     margin: 20px 0;
     width: calc(100% + 5px);
-    
+
 
     .ad-slot__content {
       text-align: center;
@@ -391,6 +391,8 @@ margin-left:90px;
     border-top: 1px solid #eaeaea;
     box-sizing: border-box;
     padding-bottom: 20px;
+    width: 100% !important;
+    height: auto !important;
   }
 
 

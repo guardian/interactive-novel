@@ -12,6 +12,14 @@ $colour2: #4bc6df;
   display:none;
 }
 
+.content--interactive .content__meta-footer .byline {
+  padding-left:10px !important;
+
+  @include mq($until: tablet) {
+  padding-left:5px;
+}
+}
+
 .content__main-column--interactive {
     max-width: initial !important;
     margin: auto !important;
@@ -30,7 +38,7 @@ $colour2: #4bc6df;
     color: #333;
     max-width: 620px;
     width: 90%;
-    padding:20px;
+    padding:10px 10px 0 10px;
     @include mq($from:wide) {
         margin-left: 15rem;
     }
@@ -43,10 +51,11 @@ $colour2: #4bc6df;
     @include mq($until: tablet) {
         margin-left: 0;
     }
-    // margin-top: 0;
     position: relative;
     z-index: 3;
     @include mq($until: tablet) {
+      padding:0px 5px 0px 5px;
+      width: 100%;
     }
 }
 
@@ -63,7 +72,6 @@ $colour2: #4bc6df;
 
 .interactive-bg-block {
     margin: 0 -1.25rem;
-    margin-bottom: 30px;
     position: relative;
     background-size: cover;
     // background-attachment: fixed;
@@ -86,9 +94,9 @@ $colour2: #4bc6df;
     }
 }
 
-.interactive-graphic {
-  margin-top:20px;
-}
+// .interactive-graphic {
+//   margin-top:20px;
+// }
 
 .challenge-title,
 .scenario-title {
@@ -191,24 +199,26 @@ margin-left:90px;
   }
 
   @include mq($from:mobileLandscape, $until:tablet){
-    top:-180px;
+    top:-150px;
   }
 
   @include mq($until:mobileLandscape){
-    top:-105px;
+    top:-95px;
     width:60px;
   }
 }
 
   #horizontal-label {
     position:relative;
-    @include mq($from:desktop){
-
-    }
 
     @include mq($until:mobileLandscape){
       top:45px;
       left:-73px;
+    }
+
+    @include mq($from:mobileLandscape, $until:tablet){
+      top:0px;
+      left:-50px;
     }
 
   }
@@ -238,7 +248,7 @@ margin-left:90px;
     }
 
     @include mq($from:mobile, $until:mobileLandscape){
-      top:80px;
+      top:60px;
       left:120px;
       width:180px;
     }
@@ -269,7 +279,13 @@ margin-left:90px;
     @include mq($until:mobileLandscape){
       left:120px;
       font-size:12px;
+      top:60px;
     }
+  }
+
+  .first-block {
+    padding-top:7px;
+    padding-bottom:5px;
   }
 
 

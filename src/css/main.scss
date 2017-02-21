@@ -12,8 +12,9 @@ $colour2: #4bc6df;
 //   display:none;
 // }
 
+
 .content--interactive .content__meta-footer .byline {
-  padding-left:10px !important;
+  padding-left:10px;
 
   @include mq($until: tablet) {
   padding-left:5px;
@@ -34,11 +35,20 @@ $colour2: #4bc6df;
     width: 100%;
 }
 
+.interactive-graphic {
+  @include mq($until: tablet) {
+      padding:5px 5px 0 5px;
+  }
+}
+
 .interactive-copy {
     color: #333;
     max-width: 620px;
-    width: 90%;
+    width: 98%;
     padding:10px 10px 0 10px;
+    position: relative;
+    z-index: 3;
+
     @include mq($from:wide) {
         margin-left: 15rem;
     }
@@ -49,13 +59,9 @@ $colour2: #4bc6df;
         margin-left: 0;
     }
     @include mq($until: tablet) {
-        margin-left: 0;
-    }
-    position: relative;
-    z-index: 3;
-    @include mq($until: tablet) {
-      padding:0px 5px 0px 5px;
-      width: 100%;
+        max-width: 98%;
+        margin:0 auto;
+        padding:5px 5px 0 5px;
     }
 }
 
@@ -63,10 +69,26 @@ $colour2: #4bc6df;
     @include fs-header(4);
     font-size: 28px;
     line-height: 36px;
+    width: 98%;
+    padding:10px 10px 0 10px;
+    position: relative;
+    z-index: 3;
 
-    @include mq($until:mobileLandscape) {
-      font-size: 24px;
-      line-height: 28px;
+    @include mq($from:wide) {
+        margin-left: 15rem;
+    }
+    @include mq ($from:wideDesktop, $until: wide) {
+        margin-left: 10rem;
+    }
+    @include mq($from:desktop, $until: wideDesktop) {
+        margin-left: 0;
+    }
+    @include mq($until: tablet) {
+        max-width: 98%;
+        margin:0 auto;
+        padding:5px 5px 0 5px;
+        font-size: 21px;
+        line-height: 28px;
     }
 }
 
@@ -94,9 +116,6 @@ $colour2: #4bc6df;
     }
 }
 
-// .interactive-graphic {
-//   margin-top:20px;
-// }
 
 .challenge-title,
 .scenario-title {
@@ -105,6 +124,11 @@ $colour2: #4bc6df;
     padding-right: 10px;
     font-size: 18px;
     line-height: 24px;
+
+    @include mq($until:tablet) {
+      font-size: 16px;
+    }
+
 }
 
 .challenge-title {
